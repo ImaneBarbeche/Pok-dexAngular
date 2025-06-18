@@ -1,1 +1,7 @@
-<p>pokemon-list works!</p>
+<ul class="pokemon-grid">
+  @for (pokemon of pokemons$ | async; track pokemon.name) {
+    <li class="pokemon-card">
+      {{ pokemon.name }}
+    </li>
+  }
+</ul>

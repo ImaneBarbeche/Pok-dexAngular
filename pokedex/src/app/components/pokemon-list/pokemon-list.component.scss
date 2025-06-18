@@ -1,0 +1,24 @@
+.pokemon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  list-style: none;
+  padding: 1rem;
+}
+
+.pokemon-card {
+  background-color: #f8f8f8;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  text-transform: capitalize;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s, background-color 0.2s;
+
+  &:hover {
+    transform: scale(1.05);
+    background-color: #e0e0ff;
+  }
+}
