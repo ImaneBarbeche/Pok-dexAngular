@@ -3,8 +3,7 @@ import { PokemonDetailComponent } from './components/pokemon-detail/pokemon-deta
 import { PokemonListComponent } from './components/pokemon-list/pokemon-list.component';
 
 export const routes: Routes = [
-    { path: 'detail', component: PokemonDetailComponent},
-    { path: 'list', component: PokemonListComponent},
-    { path: '**', redirectTo: '', pathMatch: 'full'}
-
+  { path: 'pokemon/:name', component: PokemonDetailComponent }, // routing dynamique 
+  { path: 'list', component: PokemonListComponent },
+  { path: '**', redirectTo: '', pathMatch: 'full' } // Redirection maintenant fonctionnelle
 ];

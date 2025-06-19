@@ -1,1 +1,24 @@
-<p>pokemon-detail works!</p>
+<div *ngIf="pokemonDetails$ | async as pokemon" class="pokemon-detail">
+
+  <h2>{{ pokemon.name }}</h2>
+  <p><strong>Taille :</strong> {{ pokemon.height }}</p>
+  <p><strong>Poids :</strong> {{ pokemon.weight }}</p>
+
+  <h3>Types</h3>
+  <ul>
+    <li *ngFor="let t of pokemon.types">{{ t.type.name }}</li>
+  </ul>
+
+  <h3>Capacités</h3>
+  <ul>
+    <li *ngFor="let a of pokemon.abilities">{{ a.ability.name }}</li>
+  </ul>
+
+  <h3>Statistiques</h3>
+  <ul>
+    <li *ngFor="let s of pokemon.stats">
+      {{ s.stat.name }} : {{ s.base_stat }}
+    </li>
+  </ul>
+
+</div>
