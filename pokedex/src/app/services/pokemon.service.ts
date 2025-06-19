@@ -2,37 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-// interface Pokemon {
-//   name: string;
-//   id: number;
-//   imageUrl?: string;
-//   type: {
-//     name: string,
-//     url: string,
-//   };
-//   poids: number;
-//   taille: number;
-//   statistiques : [
-//     {
-//       base_stat: number;
-//       effort: number;
-
-//     },
-//     stat: {
-//       name: string;
-//       url: string;
-//     }
-//   ]
-//   capacites: any
-// }
-interface PokemonListItem {
-  name: string;
-  url: string;
-  id: number;
-}
-
-
+import { PokemonListItem } from '../model/PokemonListItem';
 
 @Injectable({
   providedIn: 'root',
