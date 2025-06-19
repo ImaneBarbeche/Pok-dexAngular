@@ -1,7 +1,17 @@
-<ul class="pokemon-grid">
-  @for (pokemon of pokemons$ | async; track pokemon.name) {
-    <li class="pokemon-card">
-      {{ pokemon.name }}
-    </li>
-  }
-</ul>
+<section class="pokedex-layout">
+  <header class="pokedex-header">
+    <h1 class="pokedex-title">Pokédex</h1>
+  </header>
+
+  <div class="pokedex-panel">
+    <ul class="pokemon-grid">
+      @for (pokemon of pokemons$ | async; track pokemon.name) {
+        <li class="pokemon-card">
+          <img [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + getIdFromUrl(pokemon.url) + '.png'"
+               [alt]="pokemon.name" />
+          <span class="pokemon-name">{{ pokemon.name }}</span>
+        </li>
+      }
+    </ul>
+  </div>
+</section>

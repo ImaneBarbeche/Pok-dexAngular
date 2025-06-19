@@ -1,38 +1,44 @@
-<div *ngIf="pokemonDetails$ | async as pokemon" class="pokemon-card">
+<div *ngIf="pokemonDetails$ | async as pokemon" class="pokemon-card horizontal-layout">
 
-<img [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + pokemon.id + '.png'"
-     [alt]="pokemon.name"
-     class="pokemon-image" />
-
-
-  <h2 class="pokemon-name">{{ pokemon.name }}</h2>
-
-  <div class="pokemon-meta">
-    <p><strong>Taille :</strong> {{ pokemon.height }}</p>
-    <p><strong>Poids :</strong> {{ pokemon.weight }}</p>
+  <!-- Colonne gauche : image -->
+  <div class="pokemon-image-section">
+    <img [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + pokemon.id + '.png'"
+         [alt]="pokemon.name"
+         class="pokemon-image" />
   </div>
 
-  <div class="pokemon-section">
-    <h3>Types</h3>
-    <ul>
-      <li *ngFor="let t of pokemon.types">{{ t.type.name }}</li>
-    </ul>
-  </div>
+  <!-- Colonne droite : infos -->
+  <div class="pokemon-info-section">
 
-  <div class="pokemon-section">
-    <h3>Capacités</h3>
-    <ul>
-      <li *ngFor="let a of pokemon.abilities">{{ a.ability.name }}</li>
-    </ul>
-  </div>
+    <h2 class="pokemon-name">{{ pokemon.name }}</h2>
 
-  <div class="pokemon-section">
-    <h3>Statistiques</h3>
-    <ul>
-      <li *ngFor="let s of pokemon.stats">
-        {{ s.stat.name }} : {{ s.base_stat }}
-      </li>
-    </ul>
-  </div>
+    <div class="pokemon-meta">
+      <p><strong>Taille :</strong> {{ pokemon.height }}</p>
+      <p><strong>Poids :</strong> {{ pokemon.weight }}</p>
+    </div>
 
+    <div class="pokemon-section">
+      <h3>Types</h3>
+      <ul>
+        <li *ngFor="let t of pokemon.types">{{ t.type.name }}</li>
+      </ul>
+    </div>
+
+    <div class="pokemon-section">
+      <h3>Capacités</h3>
+      <ul>
+        <li *ngFor="let a of pokemon.abilities">{{ a.ability.name }}</li>
+      </ul>
+    </div>
+
+    <div class="pokemon-section">
+      <h3>Statistiques</h3>
+      <ul>
+        <li *ngFor="let s of pokemon.stats">
+          {{ s.stat.name }} : {{ s.base_stat }}
+        </li>
+      </ul>
+    </div>
+
+  </div>
 </div>
