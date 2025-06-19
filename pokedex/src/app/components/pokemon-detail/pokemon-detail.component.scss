@@ -1,25 +1,50 @@
-.pokemon-detail {
-  padding: 1.5rem;
-  background-color: #fdfdfd;
-  border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+.pokemon-card {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+}
 
-  h2 {
-    text-transform: capitalize;
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
+.pokemon-image {
+  display: block;
+  margin: 0 auto 1rem;
+  width: 120px;
+  height: auto;
+  image-rendering: pixelated; // effet rétro "sprite"
+}
 
-  h3 {
-    margin-top: 1.5rem;
-    font-size: 1.2rem;
-    color: #333;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 0.3rem;
-  }
+.pokemon-name {
+  text-align: center;
+  font-size: 2.2rem;
+  text-transform: capitalize;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+.pokemon-meta {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1.5rem;
 
   p {
-    margin: 0.3rem 0;
+    margin: 0;
+    font-weight: bold;
+  }
+}
+
+.pokemon-section {
+  margin-top: 1.5rem;
+
+  h3 {
+    font-size: 1.1rem;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
+    color: #444;
   }
 
   ul {
@@ -27,15 +52,15 @@
     padding: 0;
 
     li {
-      margin: 0.2rem 0;
+      margin: 0.3rem 0;
       padding-left: 1rem;
       position: relative;
 
       &::before {
-        content: '•';
+        content: '›';
         position: absolute;
         left: 0;
-        color: #888;
+        color: #999;
       }
     }
   }
