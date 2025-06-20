@@ -1,62 +1,69 @@
-<section class="pokedex-layout">
-  <header class="pokedex-header">
-    <h1 class="pokedex-title">Pokédex</h1>
-  </header>
+<section class="search-section">
+  <h1 class="main-title">Pokédex</h1>
 
-  <input
-    type="text"
-    (input)="onSearch($event)"
-    placeholder="Rechercher un Pokémon..."
-    class="search-input"
-  />
-  <div class="filters">
-    <label for="sort-select">Trier :</label>
-    <select id="sort-select" (change)="onSort($event)">
-      <option value="asc">Nom A → Z</option>
-      <option value="desc">Nom Z → A</option>
-    </select>
+  <div class="search-wrapper">
+    <!-- Barre de recherche -->
+    <div class="search-box">
+      <label for="search-input" class="search-label">Nom</label>
 
-    <label for="type-select">Filtrer par type :</label>
-    <select id="type-select" (change)="onTypeChange($event)">
-      <option value="">Tous</option>
-      <option *ngFor="let type of availableTypes" [value]="type">
-        {{ type }}
-      </option>
-    </select>
-  </div>
-
-  <div class="pokedex-panel">
-    <!-- Affichage si les pokémons sont chargés -->
-    <ul
-      class="pokemon-grid"
-      *ngIf="filteredPokemons$ | async as pokemons; else loading"
-    >
-      <!-- Affichage normal -->
-      <li
-        class="pokemon-card"
-        *ngFor="let pokemon of pokemons; trackBy: trackByName"
-        [routerLink]="['/pokemon', pokemon.name]"
-      >
-        <img
-          [src]="
-            'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' +
-            getIdFromUrl(pokemon.url) +
-            '.png'
-          "
-          [alt]="pokemon.name"
+      <div class="search-field">
+        <input
+          id="search-input"
+          type="text"
+          (input)="onSearch($event)"
+          placeholder="Rechercher un Pokémon..."
         />
-        <span class="pokemon-name">{{ pokemon.name }}</span>
-      </li>
+      </div>
+    </div>
 
-      <!-- Message si aucun résultat -->
+    <!-- Bloc explicatif -->
+    <div class="search-info-box">
+      Recherchez un Pokémon par son nom.
+    </div>
+  </div>
+</section>
+
+<section class="filters-section">
+  <div class="filters-inner">
+    <div class="filter-group">
+      <label for="sort-select">Filter by :</label>
+      <select id="sort-select" (change)="onSort($event)">
+        <option value="asc">A → Z</option>
+        <option value="desc">Z → A</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="type-select">Type :</label>
+      <select id="type-select" (change)="onTypeChange($event)">
+        <option value="">All</option>
+        <option *ngFor="let type of availableTypes" [value]="type">
+          {{ type }}
+        </option>
+      </select>
+    </div>
+  </div>
+</section>
+
+  <!-- 📦 Affichage conditionnel -->
+  <div class="pokedex-panel">
+    <ul class="pokemon-grid" *ngIf="filteredPokemons$ | async as pokemons; else loading">
+      
+      <!-- 🧩 Affichage des cartes Pokémon -->
+      <app-pokemon-card
+        *ngFor="let pokemon of pokemons; trackBy: trackByName"
+        [pokemon]="pokemon">
+      </app-pokemon-card>
+
+      <!-- ❌ Aucun résultat -->
       <li *ngIf="pokemons.length === 0" class="no-results">
         Aucun Pokémon trouvé.
       </li>
     </ul>
 
-    <!-- Fallback pendant le chargement -->
+    <!-- ⏳ Loading -->
     <ng-template #loading>
-      <p>Chargement des Pokémons...</p>
+      <p class="loading">Chargement en cours...</p>
     </ng-template>
   </div>
-</section>
+

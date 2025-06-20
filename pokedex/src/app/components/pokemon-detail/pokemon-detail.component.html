@@ -12,32 +12,36 @@
 
     <h2 class="pokemon-name">{{ pokemon.name }}</h2>
 
-    <div class="pokemon-meta">
-      <p><strong>Taille :</strong> {{ pokemon.height }}</p>
-      <p><strong>Poids :</strong> {{ pokemon.weight }}</p>
+    <!-- TYPES EN BADGES -->
+    <div class="pokemon-types">
+      <span *ngFor="let t of pokemon.types" class="type-badge">
+        {{ t.type.name }}
+      </span>
     </div>
 
-    <div class="pokemon-section">
-      <h3>Types</h3>
-      <ul>
-        <li *ngFor="let t of pokemon.types">{{ t.type.name }}</li>
-      </ul>
-    </div>
+    <!-- METADATA + STATS DANS UN CADRE -->
+    <div class="pokemon-data-box">
+      <div class="meta">
+        <p><strong>Height:</strong> {{ pokemon.height / 10 }} m</p>
+        <p><strong>Weight:</strong> {{ pokemon.weight / 10 }} kg</p>
+      </div>
 
-    <div class="pokemon-section">
-      <h3>Capacités</h3>
-      <ul>
-        <li *ngFor="let a of pokemon.abilities">{{ a.ability.name }}</li>
-      </ul>
-    </div>
+      <div class="abilities">
+        <h3>Abilities</h3>
+        <ul>
+          <li *ngFor="let a of pokemon.abilities">{{ a.ability.name }}</li>
+        </ul>
+      </div>
 
-    <div class="pokemon-section">
-      <h3>Statistiques</h3>
-      <ul>
-        <li *ngFor="let s of pokemon.stats">
-          {{ s.stat.name }} : {{ s.base_stat }}
-        </li>
-      </ul>
+      <div class="stats">
+        <h3>Base Stats</h3>
+        <ul>
+          <li *ngFor="let s of pokemon.stats">
+            <span class="stat-name">{{ s.stat.name }}</span>
+            <span class="stat-value">{{ s.base_stat }}</span>
+          </li>
+        </ul>
+      </div>
     </div>
 
   </div>

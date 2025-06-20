@@ -1,0 +1,12 @@
+<li class="pokemon-card" [routerLink]="['/pokemon', pokemon.name]">
+  <img
+    [src]="
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' +
+      getIdFromUrl(pokemon.url) +
+      '.png'
+    "
+    [alt]="pokemon.name"
+  />
+  <span class="pokemon-name">{{ pokemon.name }}</span>
+  <span class="pokemon-id">N°{{ formatId(getIdFromUrl(pokemon.url)) }}</span> 
+</li>

@@ -1,94 +1,86 @@
 import { Component, inject } from '@angular/core';
 import { PokemonService } from '../../services/pokemon.service';
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router'; // expose toutes les directives liées à la navigation (comme routerLink, router-outlet, etc.)
+import { RouterModule } from '@angular/router';
 import { BehaviorSubject, combineLatest, map } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component';
 
 
 @Component({
   selector: 'app-pokemon-list',
   standalone: true,
-  imports: [AsyncPipe, RouterModule, CommonModule],
+  imports: [AsyncPipe, RouterModule, CommonModule, PokemonCardComponent],
   templateUrl: './pokemon-list.component.html',
   styleUrls: ['./pokemon-list.component.scss'],
 })
 export class PokemonListComponent {
+
+  // Types disponibles pour le filtre
   availableTypes = [
-    'fire',
-    'water',
-    'grass',
-    'electric',
-    'normal',
-    'bug',
-    'psychic',
-    'fighting',
-    'poison',
-    'ground',
-    'rock',
-    'ghost',
+    'Fire', 'Water', 'Grass', 'Electric', 'Normal', 'Bug',
+    'Psychic', 'Fighting', 'Poison', 'Ground', 'Rock', 'Ghost'
   ];
 
-  private selectedType$ = new BehaviorSubject<string>(''); // vide = tous
-  
-  public pokemonService = inject(PokemonService);
+  // --- Filtres réactifs ---
+  private selectedType$ = new BehaviorSubject<string>('');               // Type sélectionné
+  private searchTerm$ = new BehaviorSubject<string>('');                // Texte de recherche
+  private sortDirection$ = new BehaviorSubject<'asc' | 'desc'>('asc'); // Tri A-Z / Z-A
+
+  private pokemonService = inject(PokemonService);
+
+  // Liste de pokémons selon le type sélectionné (appel API dynamique)
   pokemons$ = this.selectedType$.pipe(
-    switchMap((type) => this.pokemonService.getPokemonsByType(type))
+    switchMap(type => this.pokemonService.getPokemonsByType(type))
   );
 
-  // BehaviorSubject pour contenir et diffuser le terme de recherche
-  // Il commence vide ('') et évolue à chaque frappe clavier
-  private searchTerm$ = new BehaviorSubject<string>('');
-  private sortDirection$ = new BehaviorSubject<'asc' | 'desc'>('asc');
+  // Liste filtrée + triée en fonction des 3 critères
+  filteredPokemons$ = combineLatest([
+    this.pokemons$,
+    this.searchTerm$,
+    this.sortDirection$
+  ]).pipe(
+    map(([pokemons, searchTerm, direction]) =>
+      pokemons
+        .filter(p =>
+          p.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+        .sort((a, b) => this.sortByName(a, b, direction))
+    )
+  );
 
-  // Méthode appelée à chaque saisie pour mettre à jour la valeur
-  onSearch(event: Event) {
+  // --- Gestion des interactions utilisateurs ---
+  onSearch(event: Event): void {
     const input = event.target as HTMLInputElement;
     this.searchTerm$.next(input.value);
   }
 
-  onSort(event: Event) {
+  onSort(event: Event): void {
     const select = event.target as HTMLSelectElement;
     this.sortDirection$.next(select.value as 'asc' | 'desc');
   }
 
-  onTypeChange(event: Event) {
+  onTypeChange(event: Event): void {
     const select = event.target as HTMLSelectElement;
     this.selectedType$.next(select.value);
   }
 
-  // Observable filtré combiné : pokémons + champ de recherche
-  filteredPokemons$ = combineLatest([
-    this.pokemons$,
-    this.searchTerm$,
-    this.sortDirection$,
-  ]).pipe(
-    map(([pokemons, searchTerm, direction]) =>
-      pokemons
-        .filter((p) =>
-          p.name.toLowerCase().includes((searchTerm ?? '').toLowerCase())
-        )
-        .sort((a, b) =>
-          direction === 'asc'
-            ? a.name.localeCompare(b.name)
-            : b.name.localeCompare(a.name)
-        )
-    )
-  );
+  // --- Utilitaires ---
 
   /**
-   * Extrait l'ID du Pokémon à partir de l'URL fournie par l'API.
-   * Exemple : "https://pokeapi.co/api/v2/pokemon/25/" → "25"
-   * Sert à construire l'URL de l'image du Pokémon.
-   * @param url L'URL brute du Pokémon (fournie par l'API)
-   * @returns L'identifiant du Pokémon sous forme de chaîne
+   * Fonction de tri alphabétique selon la direction donnée
    */
-  public getIdFromUrl(url: string): string {
-    return url.split('/').filter(Boolean).pop()!;
+  private sortByName(
+    a: { name: string },
+    b: { name: string },
+    direction: 'asc' | 'desc'
+  ): number {
+    return direction === 'asc'
+      ? a.name.localeCompare(b.name)
+      : b.name.localeCompare(a.name);
   }
 
-  public trackByName(index: number, pokemon: { name: string }) {
+  public trackByName(index: number, pokemon: { name: string }): string {
     return pokemon.name;
   }
-
 }

@@ -1,100 +1,84 @@
-
-.pokemon-card.horizontal-layout {
+.horizontal-layout {
   display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
-  max-width: 800px;
-  margin: 2rem auto;
+  align-items: flex-start;
+  justify-content: center;
   padding: 2rem;
-  border: 1px solid #ddd;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  background: #fff;
-  font-family: 'Segoe UI', sans-serif;
-
-  @media (max-width: 700px) {
-    flex-direction: column;
-    align-items: center;
-  }
+  background-color: #f9f9f9;
+  border-radius: 12px;
 }
 
 .pokemon-image-section {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  flex: 0 0 200px;
 
-.pokemon-image {
-  width: 180px;
-  height: 180px;
-  object-fit: contain;
+  .pokemon-image {
+    width: 100%;
+    max-width: 180px;
+    height: auto;
+  }
 }
 
 .pokemon-info-section {
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  flex: 1 1 300px;
 
-  // Style fiche cartonnée
-  background: linear-gradient(145deg, #fafafa, #f0f0f0);
-  border: 1px solid #e0e0e0;
-  border-radius: 16px;
-  padding: 1.5rem;
-  box-shadow:
-    inset 0 1px 0 #ffffff,
-    inset 0 -1px 0 #e6e6e6,
-    0 4px 8px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease;
-
-  &:hover {
-    transform: translateY(-2px);
-  }
-}
-
-
-.pokemon-name {
-  font-size: 2rem;
-  font-weight: 600;
-  text-transform: capitalize;
-  color: #2c3e50;
-}
-
-.pokemon-meta {
-  font-size: 0.95rem;
-  color: #555;
-
-  p {
-    margin: 0.3rem 0;
-  }
-}
-
-.pokemon-section {
-  h3 {
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-    color: #8e44ad;
+  .pokemon-name {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-transform: capitalize;
+    color: #1e3a8a;
   }
 
-  ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+  .pokemon-types {
+    margin-bottom: 1rem;
 
-    li {
-  background: #e0e0e0;
-  color: #333;
-  border-radius: 20px;
-  padding: 0.3rem 0.8rem;
-  font-weight: 500;
-  font-size: 0.85rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  text-transform: capitalize;
-}
+    .type-badge {
+      display: inline-block;
+      background-color: #ddd;
+      color: #333;
+      padding: 0.4rem 0.8rem;
+      margin-right: 0.5rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+  }
 
+  .pokemon-data-box {
+    background-color: #ffffff;
+    border: 1px solid #e2e2e2;
+    padding: 1.2rem;
+    border-radius: 10px;
+
+    .meta p {
+      margin: 0.3rem 0;
+    }
+
+    .abilities,
+    .stats {
+      margin-top: 1rem;
+
+      h3 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      li {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.2rem 0;
+        border-bottom: 1px solid #ccc;
+
+        .stat-name {
+          text-transform: capitalize;
+        }
+      }
+    }
   }
 }
-
-

@@ -1,76 +1,166 @@
 .pokedex-layout {
-  background: #ffffff;
-  max-width: 1200px;
-  margin: auto;
   padding: 2rem;
-  font-family: "Segoe UI", sans-serif;
-  color: #2c3e50;
 }
 
-.pokedex-header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: center;
+  justify-content: center;
 
-.pokedex-title {
-  font-size: 2.8rem;
-  font-weight: 700;
-  color: #1d3557;
-}
-
-.pokedex-panel {
-  // background: #dceefb;
-  border-radius: 20px;
-  padding: 2rem;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-  position: relative;
-  z-index: 2;
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+  select,
+  input {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
 }
 
 .pokemon-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 1.5rem;
   list-style: none;
-  padding: 0;
-}
-
-.pokemon-card {
-  text-align: center;
-  background: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
-  border-radius: 16px;
   padding: 1rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: default;
+}
 
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.08);
+.no-results {
+  text-align: center;
+  font-style: italic;
+  color: #777;
+}
+
+.loading {
+  text-align: center;
+  color: #aaa;
+}
+
+.search-section {
+  background-color: #2e2e2e;
+  padding: 2rem;
+  color: #fff;
+
+  .main-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #f2f2f2;
   }
 
-  img {
-    width: 72px;
-    height: 72px;
-    margin-bottom: 0.5rem;
+  .search-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 900px;
+    margin: 0 auto;
   }
 
-  .pokemon-name {
-    display: block;
+  .search-box {
+    flex: 1 1 400px;
+    max-width: 420px;
+
+    .search-label {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .search-field {
+      display: flex;
+      align-items: center;
+      background-color: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+
+      input {
+        flex: 1;
+        padding: 0.6rem 1rem;
+        font-size: 1rem;
+        border: none;
+        outline: none;
+      }
+    }
+
+    .search-help {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+  }
+
+  .search-info-box {
+    flex: 1 1 300px;
+    max-width: 350px;
+    background-color: #22c55e;
+    padding: 1.2rem;
+    border-radius: 10px;
     font-size: 1rem;
-    font-weight: 600;
-    text-transform: capitalize;
-    color: #1d3557;
+    line-height: 1.4;
+    color: #fff;
   }
 }
 
-#sort-select {
-  margin: 0.5rem auto 1rem;
-  display: block;
-  padding: 0.5rem;
-  font-size: 1rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+.filters-section {
+  background-color: #f0f0f0;
+  padding: 1rem 2rem;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+
+  .filters-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    label {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      color: #333;
+    }
+
+    select {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      cursor: pointer;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .search-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  .search-info-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-width: 90%;
+    min-height: 60px;
+  }
+
+  .search-field input {
+    font-size: 1rem;
+    padding: 0.6rem 1rem;
+    width: 100%;
+  }
+
 }
