@@ -3,15 +3,60 @@
     <h1 class="pokedex-title">Pokédex</h1>
   </header>
 
+  <input
+    type="text"
+    (input)="onSearch($event)"
+    placeholder="Rechercher un Pokémon..."
+    class="search-input"
+  />
+  <div class="filters">
+    <label for="sort-select">Trier :</label>
+    <select id="sort-select" (change)="onSort($event)">
+      <option value="asc">Nom A → Z</option>
+      <option value="desc">Nom Z → A</option>
+    </select>
+
+    <label for="type-select">Filtrer par type :</label>
+    <select id="type-select" (change)="onTypeChange($event)">
+      <option value="">Tous</option>
+      <option *ngFor="let type of availableTypes" [value]="type">
+        {{ type }}
+      </option>
+    </select>
+  </div>
+
   <div class="pokedex-panel">
-    <ul class="pokemon-grid">
-      @for (pokemon of pokemons$ | async; track pokemon.name) {
-        <li class="pokemon-card">
-          <img [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + getIdFromUrl(pokemon.url) + '.png'"
-               [alt]="pokemon.name" />
-          <span class="pokemon-name">{{ pokemon.name }}</span>
-        </li>
-      }
+    <!-- Affichage si les pokémons sont chargés -->
+    <ul
+      class="pokemon-grid"
+      *ngIf="filteredPokemons$ | async as pokemons; else loading"
+    >
+      <!-- Affichage normal -->
+      <li
+        class="pokemon-card"
+        *ngFor="let pokemon of pokemons; trackBy: trackByName"
+        [routerLink]="['/pokemon', pokemon.name]"
+      >
+        <img
+          [src]="
+            'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' +
+            getIdFromUrl(pokemon.url) +
+            '.png'
+          "
+          [alt]="pokemon.name"
+        />
+        <span class="pokemon-name">{{ pokemon.name }}</span>
+      </li>
+
+      <!-- Message si aucun résultat -->
+      <li *ngIf="pokemons.length === 0" class="no-results">
+        Aucun Pokémon trouvé.
+      </li>
     </ul>
+
+    <!-- Fallback pendant le chargement -->
+    <ng-template #loading>
+      <p>Chargement des Pokémons...</p>
+    </ng-template>
   </div>
 </section>

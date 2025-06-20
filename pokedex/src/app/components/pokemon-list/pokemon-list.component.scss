@@ -1,4 +1,3 @@
-
 .pokedex-layout {
   background: #ffffff;
   max-width: 1200px;
@@ -65,4 +64,13 @@
     text-transform: capitalize;
     color: #1d3557;
   }
+}
+
+#sort-select {
+  margin: 0.5rem auto 1rem;
+  display: block;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
 }
